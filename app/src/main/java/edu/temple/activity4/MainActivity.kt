@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
@@ -24,26 +25,30 @@ class MainActivity : AppCompatActivity() {
         val textSizes = Array(20){(it + 1) * 5}
         for(i in 1..textSizes.size)
             Log.d("Array values", textSizes[i].toString())
+        textSizeSelector.adapter = TextSizeAdapter(textSizes)
+        textSizeSelector.layoutManager = LinearLayoutManager(this)
     }
 }
 
 
 /* Convert to RecyclerView.Adapter */
-class TextSizeAdapter : RecyclerView.Adapter<TextSizeAdapter.TextSizeViewHolder>() {
-    class TextSizeViewHolder(view:View) : RecyclerView.ViewHolder(view){
-
+class TextSizeAdapter(_textSizes: Array<Int>) : RecyclerView.Adapter<TextSizeAdapter.TextSizeViewHolder>() {
+    private val textSizes = _textSizes
+    class TextSizeViewHolder(view: TextView) : RecyclerView.ViewHolder(view){
+        val textView = view
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextSizeViewHolder {
-        TODO("Not yet implemented")
+        return TextSizeViewHolder(TextView(parent.context).apply{setPadding(5,20,0,20)})
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return textSizes.size
     }
 
     override fun onBindViewHolder(holder: TextSizeViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.textView.text = textSizes[position].toString()
+        holder.textView.textSize = textSizes[position].toFloat()
     }
 
 }
