@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         textSizeSelector = findViewById(R.id.recyclerView)
         // Verify correctness by examining array values.
         val textSizes = Array(20){(it + 1) * 5}
-        for(i in 1..textSizes.size)
+        for(i in 0..(textSizes.size-1))
             Log.d("Array values", textSizes[i].toString())
         textSizeSelector.adapter = TextSizeAdapter(textSizes)
         textSizeSelector.layoutManager = LinearLayoutManager(this)
